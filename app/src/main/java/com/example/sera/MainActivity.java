@@ -24,45 +24,66 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextViewResult;
+    private TextView waterPlant;
+    private TextView weedRatio;
+    private TextView humidity;
+    private TextView temperature;
+    private TextView moisture;
     private RequestQueue mQueue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTextViewResult = findViewById(R.id.text_view_result);
-        Button buttonParse = findViewById(R.id.button_parse);
+
+        waterPlant = findViewById(R.id.text_view_result5);
+        weedRatio = findViewById(R.id.text_view_result3);
+        humidity = findViewById(R.id.text_view_result2);
+        temperature = findViewById(R.id.text_view_result1);
+        moisture = findViewById(R.id.text_view_result4);
+
+        Button btnWaterPlante = findViewById(R.id.button_water_plante);
+        Button btnGetWeeds = findViewById(R.id.button_weeds);
+        Button btnTemperature = findViewById(R.id.button_temperature);
+        Button getHumidity = findViewById(R.id.button_humidity);
+        Button btnGetMoisture = findViewById(R.id.button_moisture);
+
         mQueue = Volley.newRequestQueue(this);
-        buttonParse.setOnClickListener(new View.OnClickListener() {
+
+        btnWaterPlante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                jsonParse();
+                new SendRequest("5", waterPlant, mQueue).jsonParse();
             }
         });
-    }
 
-    private void jsonParse() {
-        String url = "http://192.168.1.8:5000/api/4";
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONObject sensors = response.getJSONObject("sensors");
-                            String sensorName = sensors.getString("sensor");
-                            double value = sensors.getDouble("value");
-                            mTextViewResult.append(sensorName + ", " + value + "\n\n");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
+        btnGetMoisture.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
+            public void onClick(View v) {
+                new SendRequest("1", moisture, mQueue).jsonParse();
             }
         });
-        mQueue.add(request);
+
+        getHumidity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SendRequest("3", humidity, mQueue).jsonParse();
+            }
+        });
+
+        btnTemperature.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SendRequest("4", temperature, mQueue).jsonParse();
+            }
+        });
+
+        btnGetWeeds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SendRequest("6", weedRatio , mQueue).jsonParse();
+            }
+        });
     }
 }
