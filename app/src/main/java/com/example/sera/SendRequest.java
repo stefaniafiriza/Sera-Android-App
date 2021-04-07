@@ -13,7 +13,10 @@ import org.json.JSONObject;
 
 public class SendRequest {
 
-    private String url = "http://192.168.1.9:5000/api/";
+    //    server local pt testare functionalitati
+    private String url = "http://192.168.100.9:5000/api/"; //ale
+    //  http://192.168.1.9:5000/api/ stefi
+
     private TextView textView;
     private RequestQueue mqueue;
 
