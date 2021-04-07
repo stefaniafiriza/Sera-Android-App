@@ -13,11 +13,11 @@ import org.json.JSONObject;
 
 public class SendRequest {
 
-    private String url = "http://192.168.1.14:5000/api/";
+    private String url = "http://192.168.1.9:5000/api/";
     private TextView textView;
     private RequestQueue mqueue;
 
-    public SendRequest(String id, TextView textView,RequestQueue mqueue) {
+    public SendRequest(String id, TextView textView, RequestQueue mqueue) {
         this.url += id;
         this.textView = textView;
         this.mqueue = mqueue;
@@ -38,8 +38,20 @@ public class SendRequest {
                                 textView.setText(String.format("%s, %s%%", sensorName, value));
                             else {
                                 if (sensorName.equals("temperature - air"))
-                                    textView.setText(String.format("%s, %s°C", sensorName, value));
-                                else textView.setText(String.format("%s, %s", sensorName, value));
+                                    if (value < 20 || value > 40)
+                                        textView.setText("Wrong temperature! Please try again!");
+                                    else
+                                        textView.setText(String.format("%s, %s°C", sensorName, value));
+                                else {
+                                    if (sensorName.equals("moisture")) {
+                                        if (value > 2.5)
+                                            textView.setText("The plant need water!");
+                                        else
+                                            textView.setText("The plant is wet!");
+
+                                    } else
+                                        textView.setText(String.format("%s, %s", sensorName, value));
+                                }
                             }
 
 
