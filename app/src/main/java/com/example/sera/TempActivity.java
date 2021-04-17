@@ -2,6 +2,7 @@ package com.example.sera;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,9 +36,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class TempActivity extends AppCompatActivity {
-
-
-    private TextView alertTextView;
 
     private TextView temperature;
     private GraphView graph;
@@ -90,12 +88,12 @@ public class TempActivity extends AppCompatActivity {
 
                 if(response.getValue() >= 60)
                 {
-                    String mesage = "The temperature is to high for your plants! Consider moving them somewhere else or cool the room proprely!";
+                    String mesage = "The temperature is too high for your plants! Consider moving them somewhere else or cool the room proprely!";
                     alert(mesage);
                 }
                 else if (response.getValue()<= 0)
                 {
-                    String mesage = "The temperature is too low your plants! Consider moving them somewhere else or heat the room proprely!";
+                    String mesage = "The temperature is too low for your plants! Consider moving them somewhere else or heat the room proprely!";
                     alert(mesage);
                 }
                 graph.addSeries(series);
@@ -112,27 +110,29 @@ public class TempActivity extends AppCompatActivity {
     }
     private void alert(String mesage)
     {
-        alertTextView = (TextView) findViewById(R.id.AlertTextView);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(TempActivity.this);
         builder.setCancelable(true);
-        builder.setTitle("Temperature allert!");
+        builder.setTitle("Temperature alert!");
         builder.setMessage(mesage);
 
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
+                        dialogInterface.dismiss();
                     }
                 });
 
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        alertTextView.setVisibility(View.VISIBLE);
                     }
                 });
-                builder.show();
+        if(!((Activity) this).isFinishing())
+        {
+            builder.show();
+        }
+
     }
 
 

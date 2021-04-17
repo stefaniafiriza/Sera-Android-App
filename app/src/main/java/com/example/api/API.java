@@ -48,7 +48,13 @@ public class API {
                             double value = sensors.getDouble("value");
                             callback.onFinish(new Sensor(sensorName, value));
                         } catch (JSONException e) {
-                            callback.onError(e);
+                            try{
+                                callback.onError(e);
+                            }catch (Exception es)
+                            {
+                                es.printStackTrace();
+                            }
+
                             e.printStackTrace();
                         }
                     }
