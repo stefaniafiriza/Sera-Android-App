@@ -33,6 +33,8 @@ public class HumidityActivity extends AppCompatActivity {
     private LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
     private int currentPoints = 0;
     private boolean skip = false;
+    private boolean alertOpened = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,7 +110,11 @@ public class HumidityActivity extends AppCompatActivity {
 
     private void alert(String mesage)
     {
-
+        if(alertOpened)
+        {
+            return;
+        }
+        alertOpened = true;
         AlertDialog.Builder builder = new AlertDialog.Builder(HumidityActivity.this);
         builder.setCancelable(true);
         builder.setTitle("Humidity alert!");
@@ -118,12 +124,28 @@ public class HumidityActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
+                alertOpened = false;
             }
         });
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                alertOpened = false;
+
+            }
+        });
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                alertOpened = false;
+
+            }
+        });
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                alertOpened = false;
 
             }
         });

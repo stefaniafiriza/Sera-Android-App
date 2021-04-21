@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        API.GetInstance(this); // create the Singleton
+        API.GetInstance(this); 
 
         Button btnWaterPlante = findViewById(R.id.button_water_plante);
         Button btnGetWeeds = findViewById(R.id.button_weeds);

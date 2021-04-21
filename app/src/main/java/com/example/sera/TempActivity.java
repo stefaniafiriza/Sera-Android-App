@@ -41,6 +41,8 @@ public class TempActivity extends AppCompatActivity {
     private GraphView graph;
     private LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
     private int currentPoints = 0;
+    private boolean alertOpened = false;
+
     @Override
    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +70,7 @@ public class TempActivity extends AppCompatActivity {
             public void run() {
                 update();
             }
-        }, 0, 1000);//put here time 1000 milliseconds=1 second
+        }, 0, 1000);
 
     }
     private void update(){
@@ -110,7 +112,11 @@ public class TempActivity extends AppCompatActivity {
     }
     private void alert(String mesage)
     {
-
+        if(alertOpened)
+        {
+            return;
+        }
+        alertOpened = true;
         AlertDialog.Builder builder = new AlertDialog.Builder(TempActivity.this);
         builder.setCancelable(true);
         builder.setTitle("Temperature alert!");
@@ -120,12 +126,29 @@ public class TempActivity extends AppCompatActivity {
             @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
+                alertOpened = false;
                     }
                 });
 
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        alertOpened = false;
+
+                    }
+                });
+                builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        alertOpened = false;
+
+                    }
+                });
+                builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        alertOpened = false;
+
                     }
                 });
         if(!((Activity) this).isFinishing())

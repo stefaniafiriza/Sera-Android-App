@@ -45,7 +45,7 @@ public class WeedActivity extends AppCompatActivity {
             public void run() {
                 update();
             }
-        }, 0, 2000);//put here time 1000 milliseconds=1 second
+        }, 0, 2000);
 
     }
     private void update(){
