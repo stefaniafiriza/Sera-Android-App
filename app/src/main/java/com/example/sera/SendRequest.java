@@ -14,7 +14,8 @@ import org.json.JSONObject;
 public class SendRequest {
 
     //    server local pt testare functionalitati
-    private String url = "http://192.168.100.9:5000/api/"; //ale
+    private String url ="http://192.168.1.5:5000/api/";
+    //  http://192.168.100.9:5000/api/ ale
     //  http://192.168.1.9:5000/api/ stefi
 
     private TextView textView;
@@ -48,7 +49,7 @@ public class SendRequest {
                                 else {
                                     if (sensorName.equals("moisture")) {
                                         if (value > 2.5)
-                                            textView.setText("The plant need water!");
+                                            textView.setText("The plant needs water!");
                                         else
                                             textView.setText("The plant is wet!");
 

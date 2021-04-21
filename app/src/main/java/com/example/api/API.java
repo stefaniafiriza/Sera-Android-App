@@ -14,7 +14,8 @@ import org.json.JSONObject;
 
 public class API {
 
-    private String url = "http://192.168.100.9:5000/api/";
+    private String url = "http://192.168.1.5:5000/api/";
+    //http://192.168.100.9:5000/api/ ale
     private RequestQueue mQueue;
     private static API instance;
 

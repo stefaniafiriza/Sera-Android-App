@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         Button btnGetMoisture = findViewById(R.id.button_moisture);
 
 
-
         btnWaterPlante.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -55,22 +54,10 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
         btnGetMoisture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ICallback callback = new ICallback() {
-                    @Override
-                    public void onFinish(Sensor response) {
-                    }
-
-                    @Override
-                    public void onError(Exception error) {
-
-                    }
-                };
-
-                API.GetInstance().getSensor(1, callback);
+                startActivity(new Intent(MainActivity.this, MoistureActivity.class));
             }
         });
 
@@ -82,28 +69,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnTemperature.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(MainActivity.this, TempActivity.class));
-                    }
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TempActivity.class));
+            }
         });
 
         btnGetWeeds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ICallback callback = new ICallback() {
-                    @Override
-                    public void onFinish(Sensor response) {
-                    }
-
-                    @Override
-                    public void onError(Exception error) {
-
-                    }
-                };
-
-                API.GetInstance().getSensor(6, callback);
+                startActivity(new Intent(MainActivity.this, WeedActivity.class));
             }
         });
     }
